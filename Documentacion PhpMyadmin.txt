@@ -1,0 +1,17 @@
+Llaves foraneas en phpmyadmin
+https://www.youtube.com/watch?v=vwPHOt2u_3g
+
+DELIMITER $$
+CREATE FUNCTION valida_usr(nameuser varchar (60), pass varchar (60)) 
+RETURNS _tipo INT
+BEGIN
+    DECLARE _tipo INT DEFAULT 0;
+    SET _tipo = ( SELECT tipo FROM usuarios where user=_usuario and password=_pass );
+    RETURN _tipo;
+END
+$$ DELIMITER ;
+
+
+https://www.youtube.com/watch?v=10Ypx8Lt2iM
+llamada de funcion
+SELECT validausr ('omar','1','')
