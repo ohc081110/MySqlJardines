@@ -6,18 +6,32 @@
 
 package Vistas;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import testbd.Conectate;
+
+
 /**
  *
  * @author Hernandez
  */
+
+
 public class Empleados extends javax.swing.JFrame {
 
     /**
      * Creates new form Usuarios
      */
+    Connection cn;
+   Conectate con=new Conectate();
+    
     public Empleados() 
     {
         initComponents();
+        //cn = con.
+       //con.Conectate();
         //super.dispose();
     }
 
@@ -44,6 +58,11 @@ public class Empleados extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Nuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Guardar");
 
@@ -68,10 +87,6 @@ public class Empleados extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,11 +108,11 @@ public class Empleados extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(234, Short.MAX_VALUE))
         );
@@ -123,6 +138,10 @@ public class Empleados extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,6 +177,7 @@ public class Empleados extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -171,4 +191,29 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+ public void LLenarDatos(DefaultTableModel modelo){
+     
+        try {
+            String sql="select * from Usuarios";
+            CallableStatement cmd=cn.prepareCall(sql);
+            ResultSet rs= cmd.executeQuery();
+           
+            while(rs.next()){
+                Object[] datos=new Object[4];
+              
+                for(int i=0;i<4;i++){
+                    datos[i]=rs.getString(i+1);                  
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+           cn.close();
+           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    } 
 }
+
+ 

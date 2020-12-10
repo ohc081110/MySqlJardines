@@ -2,7 +2,6 @@
 package testbd;
 
 import java.sql.*;
-//import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 
 
@@ -14,11 +13,13 @@ public class Conectate
     private String contraseña = "";
     public Connection con;
     
-    public Conectate ()
+    public void Conectate ()
+            
     {
         try{
       Class.forName(driver);
       con = DriverManager.getConnection(cadenaConexion, usuario, contraseña);
+      
         //JOptionPane.showMessageDialog(null, "conexion a la BD exitosa");
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "No se pudo establecer la conexion a la BD ..."+e.getMessage());

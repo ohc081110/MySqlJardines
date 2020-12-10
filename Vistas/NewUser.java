@@ -7,7 +7,9 @@
 package Vistas;
 
 import javax.swing.JOptionPane;
-import testbd.Conectate;
+//import testbd.Conectate;
+import testbd.Conexion;
+//import testbd.Conexion;
 
 /**
  *
@@ -114,7 +116,8 @@ System.exit(0);        // TODO add your handling code here:
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String usuario = jTextField1.getText();
         String password=new String(jPasswordField1.getPassword());
-          Conectate con = new Conectate();
+        Conexion con = new Conexion();
+        //Conexion con = new Conexion();
           int tipo = 0;
           
             if((password.isEmpty() && usuario.isEmpty() ))
